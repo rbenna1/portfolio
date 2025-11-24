@@ -1,0 +1,124 @@
+.hero-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('/hero.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 24, 39, 0.8);
+}
+
+.snowflakes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    top: -10px;
+    color: #fff;
+    font-size: 1.5em;
+    opacity: 0.2;
+    animation: fall linear infinite;
+    text-shadow: 0 0 5px rgba(238, 229, 229, 0.8);
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotateZ(360deg);
+        opacity: 0;
+    }   
+}
+
+/* Réduit les animations pour les utilisateurs qui préfèrent les mouvement réduits */
+@media (prefers-reduced-motion: reduce) {
+    .snowflake {
+        animation: none;
+        display: none;
+    }
+}
+.text-neon {
+    color: #a5b4fc; /* indigo clair */
+    text-shadow:
+      0 0 5px #6366f1,
+      0 0 10px #818cf8,
+      0 0 20px #a5b4fc,
+      0 0 40px #a5b4fc;
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+  }
+  
+  .text-neon:hover {
+    color: #ffffff;
+    text-shadow:
+      0 0 10px #818cf8,
+      0 0 20px #a5b4fc,
+      0 0 40px #c7d2fe,
+      0 0 80px #ffffff;
+  }
+  
+
+/* ============== Thèmes (change juste la classe sur l’aside) ============== */
+.theme-violet {                /* violet doux + halo violet */
+    --card-from: rgba(124,58,237,0.14);
+    --card-to:   rgba(67,56,202,0.10);
+    --card-border: rgba(139,92,246,0.35);
+    --halo-rgb: 139,92,246;     /* violet-500 */
+    --halo-alpha: 0.33;
+  }
+  
+  .theme-cyan {                  /* bleu/cyan froid */
+    --card-from: rgba(59,130,246,0.12);
+    --card-to:   rgba(6,182,212,0.10);
+    --card-border: rgba(56,189,248,0.35);
+    --halo-rgb: 6,182,212;      /* cyan-500 */
+    --halo-alpha: 0.32;
+  }
+  
+  .theme-emerald {               /* vert moderne */
+    --card-from: rgba(16,185,129,0.12);
+    --card-to:   rgba(5,150,105,0.10);
+    --card-border: rgba(52,211,153,0.35);
+    --halo-rgb: 16,185,129;     /* emerald-500 */
+    --halo-alpha: 0.30;
+  }
+  
+  .theme-sunset {                /* orange/rose chaleureux */
+    --card-from: rgba(245,158,11,0.14);
+    --card-to:   rgba(236,72,153,0.10);
+    --card-border: rgba(251,191,36,0.35);
+    --halo-rgb: 236,72,153;     /* pink-500 */
+    --halo-alpha: 0.30;
+  }
+  
+  .theme-cyberpunk {             /* magenta + cyan punchy */
+    --card-from: rgba(236,72,153,0.16);
+    --card-to:   rgba(14,165,233,0.12);
+    --card-border: rgba(244,114,182,0.45);
+    --halo-rgb: 14,165,233;     /* sky-500 (halo bleu) */
+    --halo-alpha: 0.35;
+  }
+  
+  .theme-gold {                  /* doré luxueux */
+    --card-from: rgba(234,179,8,0.16);
+    --card-to:   rgba(202,138,4,0.12);
+    --card-border: rgba(250,204,21,0.45);
+    --halo-rgb: 234,179,8;      /* yellow-400 */
+    --halo-alpha: 0.32;
+  }
