@@ -12,7 +12,7 @@ resource "aws_lambda_function" "contact_function" {
 	runtime          = "nodejs22.x"
 	role             = aws_iam_role.lambda_exec.arn
 
-	reserved_concurrent_executions = 1 # Limit to 1 concurrent execution
+	reserved_concurrent_executions = 5 # Limit to 5 concurrent executions
 
 	environment {
 		variables = {
