@@ -41,7 +41,7 @@ jobs:
           node-version: "latest"
 
       - name: Install Dependencies
-        working-directory: .
+        working-directory: ./client
         run: |
           pnpm install
 
