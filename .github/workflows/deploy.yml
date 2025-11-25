@@ -60,6 +60,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Create Terraform State Infrastructure
+        run: bash terraform/bootstrap/create-state-bucket.sh || true
+
       - name: Initialize Terraform
         working-directory: ./terraform
         run: |
