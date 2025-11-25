@@ -1,0 +1,88 @@
+name: Build and Deploy
+
+concurrency:
+  group: terraform-apply-${{ github.ref_name }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      force_invalidation:
+        description: 'Type "1" to force client rebuild/deploy and CloudFront invalidation even if no client changes detected'
+        required: false
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "latest"
+
+      - name: Install Dependencies
+        working-directory: .
+        run: |
+          pnpm install
+
+      - name: Build Client
+        working-directory: ./client
+        run: |
+          pnpm build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_IAM_ROLE_NAME }}
+          role-session-name: portfolio-session
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Initialize Terraform
+        working-directory: ./terraform
+        run: |
+          terraform init -backend-config=state.config
+
+      - name: Plan Terraform
+        working-directory: ./terraform
+        run: |
+          terraform plan -input=false
+
+      - name: Apply Terraform
+        working-directory: ./terraform
+        run: |
+          terraform apply -auto-approve -input=false
+          echo "S3_BUCKET_NAME=$(terraform output -raw s3_bucket_name)" >> $GITHUB_ENV
+          echo "CLOUDFRONT_DIST_ID=$(terraform output -raw cloudfront_distribution_id)" >> $GITHUB_ENV
+
+      - name: Upload to S3
+        working-directory: ./client
+        run: |
+          aws s3 sync ./dist s3://${{ env.S3_BUCKET_NAME }} --delete
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ env.CLOUDFRONT_DIST_ID }} \
+            --paths "/*"
