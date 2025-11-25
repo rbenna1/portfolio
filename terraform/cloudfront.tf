@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_cloudfront_cache_policy" "website" {
-	name        = "${var.bucket_name}-cache-policy"
+	name        = "${var.bucket_name}-cache-policy-v2"
 	comment     = "Cache policy for ${var.bucket_name}"
 	min_ttl     = 604800    # 7 days
 	default_ttl = 2592000   # 30 days

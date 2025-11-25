@@ -63,6 +63,9 @@ jobs:
       - name: Create Terraform State Infrastructure
         run: bash terraform/bootstrap/create-state-bucket.sh || true
 
+      - name: Cleanup Existing AWS Resources
+        run: bash terraform/bootstrap/cleanup-resources.sh || true
+
       - name: Initialize Terraform
         working-directory: ./terraform
         run: |
