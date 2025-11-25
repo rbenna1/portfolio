@@ -55,7 +55,7 @@ resource "aws_iam_role_policy" "lambda_ses" {
 					"ses:SendRawEmail"
 				]
 				Resource = [
-					aws_ses_domain_identity.admin.arn
+					"arn:aws:ses:${var.aws_region}:*:identity/${aws_ses_email_identity.admin.email}"
 				]
 			}
 		]
@@ -72,11 +72,7 @@ resource "aws_lambda_permission" "api" {
 
 
 
-/*
-	======================================================================
-	AUTHORIZER LAMBDA
-	======================================================================
-*/
+
 data "archive_file" "authorizer_zip" {
 	type        = "zip"
 	source_file = "${path.cwd}/../lambda/auth.js"
