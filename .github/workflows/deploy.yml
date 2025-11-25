@@ -69,6 +69,7 @@ jobs:
         working-directory: ./terraform
         run: |
           terraform plan \
+            -lock=false \
             -input=false \
             -var="domain_name=rafikben.cloud" \
             -var="bucket_name=rafik-portfolio" \
@@ -79,6 +80,7 @@ jobs:
         working-directory: ./terraform
         run: |
           terraform apply \
+            -lock=false \
             -auto-approve \
             -input=false \
             -var="domain_name=rafikben.cloud" \
