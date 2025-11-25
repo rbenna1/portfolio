@@ -74,7 +74,7 @@ jobs:
             -var="domain_name=rafikben.cloud" \
             -var="bucket_name=rafik-portfolio" \
             -var="admin_email=rafik.bennacer.cs@gmail.com" \
-            -var="aws_region=eu-west-3"
+            -var="aws_region=us-east-1"
 
       - name: Apply Terraform
         working-directory: ./terraform
@@ -86,7 +86,7 @@ jobs:
             -var="domain_name=rafikben.cloud" \
             -var="bucket_name=rafik-portfolio" \
             -var="admin_email=rafik.bennacer.cs@gmail.com" \
-            -var="aws_region=eu-west-3"
+            -var="aws_region=us-east-1"
           echo "S3_BUCKET_NAME=$(terraform output -raw s3_bucket_name)" >> $GITHUB_ENV
           echo "CLOUDFRONT_DIST_ID=$(terraform output -raw cloudfront_distribution_id)" >> $GITHUB_ENV
 
