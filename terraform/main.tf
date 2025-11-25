@@ -30,8 +30,8 @@ provider "aws" {
 
 # Additional provider for ACM certificate (CloudFront requires certificates in us-east-1)
 provider "aws" {
-	alias  = "eu-west-3"
-	region = "eu-west-3"
+	alias  = "us-east-1"
+	region = "us-east-1"
 
 	skip_metadata_api_check     = true
 	skip_region_validation     = true
