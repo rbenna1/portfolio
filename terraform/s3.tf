@@ -1,7 +1,11 @@
 # S3 bucket used to store the static files
 resource "aws_s3_bucket" "spa_bucket" {
-	bucket = var.bucket_name
+	bucket         = var.bucket_name
+	force_destroy = true
 }
+
+# Get current AWS account ID for unique naming
+data "aws_caller_identity" "current" {}
 
 # Disable public access to the S3 bucket
 resource "aws_s3_bucket_public_access_block" "spa_bucket_access" {
@@ -30,11 +34,15 @@ resource "aws_s3_bucket_versioning" "spa_bucket" {
 }
 
 resource "aws_cloudfront_origin_access_control" "website" {
-	name                              = "${var.bucket_name}-oac"
+	name                              = "rafik-portfolio-oac-${substr(data.aws_caller_identity.current.account_id, length(data.aws_caller_identity.current.account_id) - 4, 4)}"
 	description                       = "OAC for ${var.bucket_name}"
 	origin_access_control_origin_type = "s3"
 	signing_behavior                  = "always"
 	signing_protocol                  = "sigv4"
+
+	lifecycle {
+		create_before_destroy = true
+	}
 }
 
 resource "aws_s3_bucket_policy" "default" {
