@@ -1,9 +1,9 @@
 terraform {
 	backend "s3" {
-		bucket = ""
-		key    = ""
-		dynamodb_table = ""
-		region = ""
+		bucket         = "tf-st-raf-portfolio"
+		key            = "terraform.tfstate"
+		dynamodb_table = "tf-st-raf-portfolio-lock"
+		region         = "us-east-1"
 	}
 
 	required_providers {
