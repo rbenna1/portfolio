@@ -1,6 +1,6 @@
 const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 
-const sesClient = new SESClient({ region: "eu-west-3" });
+const sesClient = new SESClient({ region: "us-east-1" });
 
 exports.handler = async (event) => {
 	try {
