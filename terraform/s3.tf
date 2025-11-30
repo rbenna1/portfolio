@@ -67,8 +67,8 @@ data "aws_iam_policy_document" "cloudfront_oac_access" {
 
 		condition {
 			test     = "StringEquals"
-			variable = "AWS:SourceArn"
-			values   = [aws_cloudfront_distribution.spa_distribution.arn]
+			variable = "AWS:SourceOACId"
+			values   = [aws_cloudfront_origin_access_control.website.id]
 		}
 	}
 }
