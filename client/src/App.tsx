@@ -334,7 +334,7 @@ import {
 							<motion.div
 								aria-hidden
 								className="h-32 relative overflow-hidden rounded-lg"
-								initial={ { opacity: 0 } }
+								initial={ { opacity: 1 } }
 								whileHover={ { opacity: 1 } }
 								transition={ { duration: 0.3 } }
 							>

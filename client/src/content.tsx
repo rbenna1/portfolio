@@ -74,39 +74,18 @@ export const projects: {
 	img: string;
 }[] = [
 	{
-		title: "Kube",
-		description: "Scalable AWS infrastructure managed with Terraform. Multi-environment setup with cost optimization and security best practices.",
-		tech: [ "Terraform", "AWS", "Python", "Lambda", "DynamoDB" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/infrastructure.webp"
+		title: "RaspTank",
+		description: "A remote-controlled robot powered by Raspberry Pi with real-time video streaming, autonomous navigation, and obstacle detection using computer vision.",
+		tech: [ "Python", "Raspberry Pi", "OpenCV", "MQTT", "WebSocket", "ROS" ],
+		link: "https://github.com/rbenna1/Remotely-Controlled-Robot",
+		img: "/project/mqdefault.jpg"
 	},
 	{
-		title: "PromCP",
-		description: "RESTful API with authentication, rate limiting, and comprehensive error handling. Production-ready with full test coverage.",
-		tech: [ "Node.js", "Express", "PostgreSQL", "GraphQL", "Jest" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/backend.webp"
-	},
-	{
-		title: "Data Pipeline",
-		description: "Automated data processing pipeline with ETL workflows, data validation, and real-time analytics integration.",
-		tech: [ "Python", "Apache Airflow", "PostgreSQL", "AWS S3", "Pandas" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/pipeline.webp"
-	},
-	{
-		title: "Monitoring & Observability",
-		description: "Comprehensive monitoring stack with logging, metrics, and distributed tracing for microservices architecture.",
-		tech: [ "Prometheus", "Grafana", "ELK Stack", "Jaeger", "Docker" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/monitoring.webp"
-	},
-	{
-		title: "RaspTANK",
-		description: "Comprehensive monitoring stack with logging, metrics, and distributed tracing for microservices architecture.",
-		tech: [ "Prometheus", "Grafana", "ELK Stack", "Jaeger", "Docker" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/monitoring.webp"
+		title: "Personal Portfolio",
+		description: "Modern responsive portfolio website with CI/CD automation, deployed on AWS using Infrastructure as Code with Terraform and GitHub Actions for continuous deployment.",
+		tech: [ "React", "TypeScript", "Tailwind CSS", "AWS", "Terraform", "GitHub Actions", "CloudFront", "S3", "Lambda" ],
+		link: "https://github.com/rbenna1/portfolio",
+		img: "/project/archi.png"
 	}
 ] as const;
 
