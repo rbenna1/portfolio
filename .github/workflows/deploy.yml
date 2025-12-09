@@ -45,11 +45,6 @@ jobs:
         working-directory: ./client
         run: pnpm install --frozen-lockfile
 
-      - name: Build Client
-        working-directory: ./client
-        run: |
-          pnpm build
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
         with:
@@ -95,6 +90,14 @@ jobs:
             -var="aws_region=us-east-1"
           echo "S3_BUCKET_NAME=$(terraform output -raw s3_bucket_name)" >> $GITHUB_ENV
           echo "CLOUDFRONT_DIST_ID=$(terraform output -raw cloudfront_distribution_id)" >> $GITHUB_ENV
+          echo "API_ENDPOINT=$(terraform output -raw api_endpoint)" >> $GITHUB_ENV
+
+      - name: Build Client
+        working-directory: ./client
+        env:
+          VITE_API_GATEWAY_ENDPOINT: ${{ env.API_ENDPOINT }}
+        run: |
+          pnpm build
 
       - name: Upload to S3
         working-directory: ./client

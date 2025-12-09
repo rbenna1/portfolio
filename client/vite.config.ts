@@ -18,6 +18,7 @@ export default defineConfig( {
 		"import.meta.env.NAME": JSON.stringify( name ),
 		"import.meta.env.DESCRIPTION": JSON.stringify( description ),
 		"import.meta.env.KEYWORDS": JSON.stringify( keywords ),
+		"import.meta.env.VITE_API_GATEWAY_ENDPOINT": JSON.stringify( process.env.VITE_API_GATEWAY_ENDPOINT || "" ),
 	},
 	resolve: {
 		alias: {
