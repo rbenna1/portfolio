@@ -27,6 +27,7 @@ import {
   import ContactForm from "@/components/ContactForm/ContactForm.tsx";
   import CopyValue from "@/components/CopyValue/CopyValue.tsx";
   import AvailabilityBadge from "@/components/AvailabilityBadge/AvailabilityBadge.tsx";
+  import Snowflakes from "@/components/Snowflakes/Snowflakes.tsx";
   
   import { motion } from "framer-motion";
   import AnimatedCounter from "@/components/SkillMatrix/AnimatedCounter.tsx";
@@ -44,14 +45,8 @@ import {
 		{/* Image/gradient de fond existant */}
 		<div className="hero-background motion-safe:animate-fade" />
 
-		{/* Snowflakes CSS Animation (légère) */}
-		<div className="snowflakes" aria-hidden="true">
-		  {[...Array(30)].map((_, i) => (
-			<div key={i} className="snowflake" style={{ left: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 2}s`, animationDuration: `${8 + Math.random() * 4}s` }}>
-			  ❄
-			</div>
-		  ))}
-		</div>
+		{/* Snowflakes - composant isolé avec useMemo */}
+		<Snowflakes />
   
 		<Navbar />
   
@@ -152,7 +147,7 @@ import {
 						transition={ { duration: 0.3 } }
 					  />
 					  <div className="relative z-10 text-3xl font-semibold">
-						<AnimatedCounter value={ 2 } isVisible={ true } />
+						<AnimatedCounter value={ 1 } isVisible={ true } />
 						<span className="ml-1 text-lg">+ years</span>
 					  </div>
 					  <div className="mt-2 text-xs uppercase tracking-widest text-white/70">
@@ -179,7 +174,7 @@ import {
 						transition={ { duration: 0.3 } }
 					  />
 					  <div className="relative z-10 text-3xl font-semibold">
-						<AnimatedCounter value={ 10 } isVisible={ true } />
+						<AnimatedCounter value={ 5 } isVisible={ true } />
 						<span className="ml-1 text-lg">+ projects</span>
 					  </div>
 					  <div className="mt-2 text-xs uppercase tracking-widest text-white/70">
@@ -315,70 +310,100 @@ import {
 						aria-label={`Visit ${project.title} project homepage`}
 						className="group"
 						href={project.link}
+						target="_blank"
+						rel="noopener noreferrer"
 						initial={ { opacity: 0, y: 30 } }
 						whileInView={ { opacity: 1, y: 0 } }
 						transition={ { delay: i * 0.1, duration: 0.6 } }
 						viewport={ { once: true, margin: "-50px" } }
 					>
 						<motion.div 
-							className={`rounded-xl overflow-hidden duration-300 transition-all cursor-pointer h-full flex flex-col border border-white/10 ${ color.hover }`}
+							className={`rounded-2xl overflow-hidden duration-300 transition-all cursor-pointer h-full flex flex-col border-2 backdrop-blur-sm ${ color.hover }`}
 							style={ {
-								backgroundColor: "rgba(30, 30, 40, 0.6)"
+								borderColor: "rgba(255, 255, 255, 0.1)",
+								backgroundColor: "rgba(20, 20, 35, 0.8)"
 							} }
 							whileHover={ { 
 								borderColor: color.border,
-								boxShadow: `0 0 30px ${ color.glow }`
+								boxShadow: `0 0 40px ${ color.glow }, inset 0 0 40px ${ color.glow }`,
+								y: -8
 							} }
 						>
-							{/* Glow derrière l'image */}
+							{/* Animated background glow */}
 							<motion.div
 								aria-hidden
-								className="h-32 relative overflow-hidden rounded-lg"
-								initial={ { opacity: 0 } }
-								whileHover={ { opacity: 1 } }
+								className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+								style={ {
+									background: `radial-gradient(circle at 50% 50%, ${ color.glow }, transparent 70%)`
+								} }
+								animate={ { opacity: [ 0, 0.1, 0 ] } }
+								transition={ { duration: 2, repeat: Infinity } }
+							/>
+
+							{/* Image with gradient overlay */}
+							<motion.div
+								className="h-40 relative overflow-hidden"
+								whileHover={ { scale: 1.05 } }
 								transition={ { duration: 0.3 } }
 							>
 								<img
 									alt={`Picture of ${project.title}`}
-									className="h-32 w-full object-cover object-top shadow-lg"
+									className="h-full w-full object-cover object-top"
 									src={project.img}
 								/>
 								<motion.div
-									className="pointer-events-none absolute inset-0"
+									className="absolute inset-0 pointer-events-none"
 									style={ {
-										background: `linear-gradient(135deg, ${ color.glow }, transparent)`
+										background: `linear-gradient(135deg, ${ color.glow }, transparent 60%)`
 									} }
-									animate={ { opacity: [ 0.2, 0.4, 0.2 ] } }
-									transition={ { duration: 3, repeat: Infinity } }
+									initial={ { opacity: 0 } }
+									whileHover={ { opacity: 0.4 } }
+									transition={ { duration: 0.3 } }
 								/>
+								<div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/80" />
 							</motion.div>
 
-							<div className="p-6 flex flex-col flex-1">
-								<h3 className="text-xl font-bold mb-4">{project.title}</h3>
+							<div className="p-6 flex flex-col flex-1 relative z-10">
+								<motion.h3 
+									className="text-2xl font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent"
+									style={ {
+										backgroundImage: `linear-gradient(135deg, ${color.border}, rgba(255,255,255,0.8))`
+									} }
+								>
+									{project.title}
+								</motion.h3>
 
-								<p className="text-gray-300 mb-4">{project.description}</p>
+								<p className="text-gray-300 text-sm mb-4 line-clamp-3">{project.description}</p>
 
-								<div className="flex flex-wrap gap-2 mb-8">
-									{project.tech.map((tech) => (
+								<div className="flex flex-wrap gap-2 mb-6">
+									{project.tech.map((tech, idx) => (
 										<motion.span
 											key={tech}
-											className={`${color.tag} px-3 py-1 rounded-full text-sm font-medium`}
-											whileHover={ { scale: 1.1 } }
-											transition={ { duration: 0.2 } }
+											className={`${color.tag} px-3 py-1.5 rounded-lg text-xs font-semibold backdrop-blur-sm`}
+											initial={ { opacity: 0, scale: 0.8 } }
+											whileInView={ { opacity: 1, scale: 1 } }
+											whileHover={ { scale: 1.15, y: -2 } }
+											transition={ { delay: idx * 0.05, duration: 0.2 } }
 										>
 											{tech}
 										</motion.span>
 									))}
 								</div>
 
-								<motion.p 
-									className="inline-flex items-center mt-auto transition-colors"
+								<motion.div 
+									className="inline-flex items-center gap-2 mt-auto font-semibold transition-all"
 									style={ { color: color.border } }
-									whileHover={ { gap: "12px" } }
+									whileHover={ { gap: "8px", x: 4 } }
+									transition={ { duration: 0.2 } }
 								>
-									View Project
-									<ExternalLink className="ml-2 transition-transform" size={16} />
-								</motion.p>
+									<span>View Project</span>
+									<motion.div
+										whileHover={ { rotate: 45 } }
+										transition={ { duration: 0.2 } }
+									>
+										<ExternalLink size={18} />
+									</motion.div>
+								</motion.div>
 							</div>
 						</motion.div>
 					</motion.a>

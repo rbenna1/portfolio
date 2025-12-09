@@ -74,40 +74,30 @@ export const projects: {
 	img: string;
 }[] = [
 	{
-		title: "Kube",
-		description: "Scalable AWS infrastructure managed with Terraform. Multi-environment setup with cost optimization and security best practices.",
-		tech: [ "Terraform", "AWS", "Python", "Lambda", "DynamoDB" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/infrastructure.webp"
-	},
+		title: "Personal Portfolio Website",
+		description: "A personal portfolio website built with React and TypeScript, deployed on AWS using Terraform and GitHub Actions for CI/CD.",
+		tech: ["React", "TypeScript", "AWS", "Terraform", "GitHub Actions"],
+		link: "https://github.com/rbenna1/portfolio",
+		img: "/project/archi.png"
+	}, 
+
 	{
-		title: "PromCP",
-		description: "RESTful API with authentication, rate limiting, and comprehensive error handling. Production-ready with full test coverage.",
-		tech: [ "Node.js", "Express", "PostgreSQL", "GraphQL", "Jest" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/backend.webp"
-	},
+		title: "Meteo France platform",
+		description: "A web platform for visualizing and analyzing meteorological data ",
+		tech: ["Python", "Project Management", "MongoDB", "Docker", "Redis", "Kafka", "Grafana", "Prometheus"],
+		link: "https://github.com/rbenna1/weather",
+		img: "/project/weather.webp"
+
+	}, 
+
 	{
-		title: "Data Pipeline",
-		description: "Automated data processing pipeline with ETL workflows, data validation, and real-time analytics integration.",
-		tech: [ "Python", "Apache Airflow", "PostgreSQL", "AWS S3", "Pandas" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/pipeline.webp"
-	},
-	{
-		title: "Monitoring & Observability",
-		description: "Comprehensive monitoring stack with logging, metrics, and distributed tracing for microservices architecture.",
-		tech: [ "Prometheus", "Grafana", "ELK Stack", "Jaeger", "Docker" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/monitoring.webp"
-	},
-	{
-		title: "RaspTANK",
-		description: "Comprehensive monitoring stack with logging, metrics, and distributed tracing for microservices architecture.",
-		tech: [ "Prometheus", "Grafana", "ELK Stack", "Jaeger", "Docker" ],
-		link: "https://github.com/rbenna1",
-		img: "/project/monitoring.webp"
+		title: "Remotely controlled robot",
+		description: "A remotely controlled robot using Raspberry Pi, equipped with a camera and sensors.",
+		tech: ["Python", "Raspberry Pi", "OpenCV", "MQTT"],
+		link: "https://github.com/rbenna1/remotely-controlled-robot",
+		img: "/project/rasp.jpg"
 	}
+
 ] as const;
 
 export const skills: {
@@ -118,11 +108,18 @@ export const skills: {
 	{
 		name: "Backend Development",
 		level: 85,
-		subSkills: [ "Node.js", "Python", "PostgreSQL", "MongoDB", "GraphQL", "Express", "Django", "REST APIs" ]
+		subSkills: [ "Node.js", "Python", "PostgreSQL", "MongoDB", "REST APIs" ]
 	},
 	{
 		name: "DevOps",
 		level: 80,
 		subSkills: [ "Docker", "CI/CD", "AWS", "Kubernetes", "GitHub Actions", "Terraform", "Linux" ]
+	}, 
+
+	{
+		name: "Cloud Computing",
+		level: 75,
+		subSkills: [ "AWS", "Lambda", "S3", "EC2", "VPC", "Route53" ]
 	}
+
 ];
