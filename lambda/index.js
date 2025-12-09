@@ -1,6 +1,6 @@
 const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 
-const sesClient = new SESClient({ region: "eu-west-3" });
+const sesClient = new SESClient({ region: "us-east-1" });
 
 exports.handler = async (event) => {
 	try {
@@ -15,6 +15,10 @@ exports.handler = async (event) => {
 		) {
 			return {
 				statusCode: 400,
+				headers: {
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Origin": "*"
+				},
 				body: JSON.stringify({
 					message: "Missing required fields: message, name, and email are required"
 				})
@@ -44,6 +48,10 @@ exports.handler = async (event) => {
 
 		return {
 			statusCode: 200,
+			headers: {
+				"Content-Type": "application/json",
+				"Access-Control-Allow-Origin": "*"
+			},
 			body: JSON.stringify({
 				message: "Email sent successfully"
 			})
@@ -53,6 +61,10 @@ exports.handler = async (event) => {
 
 		return {
 			statusCode: 500,
+			headers: {
+				"Content-Type": "application/json",
+				"Access-Control-Allow-Origin": "*"
+			},
 			body: JSON.stringify({
 				message: "Error processing request"
 			})
