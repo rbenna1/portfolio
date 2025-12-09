@@ -2,8 +2,10 @@ resource "aws_apigatewayv2_api" "api" {
 	name          = "contact-me-api-${var.bucket_name}"
 	protocol_type = "HTTP"
 	cors_configuration {
-		allow_origins = ["https://${var.domain_name}", "https://www.${var.domain_name}"]
-		allow_methods = ["POST"]
+		allow_origins = ["https://${var.domain_name}", "https://www.${var.domain_name}", "https://rafikben.cloud"]
+		allow_methods = ["POST", "OPTIONS"]
+		allow_headers = ["Content-Type"]
+		expose_headers = ["Content-Type"]
 	}
 }
 
