@@ -4,15 +4,27 @@ const sesClient = new SESClient({ region: "us-east-1" });
 
 exports.handler = async (event) => {
 	try {
-		const body = JSON.parse(event.body);
+		console.log('Event received:', JSON.stringify(event));
+		console.log('ADMIN_EMAIL env var:', process.env.ADMIN_EMAIL);
+		
+		let body;
+		if (typeof event.body === 'string') {
+			body = JSON.parse(event.body);
+		} else {
+			body = event.body;
+		}
+		
+		console.log('Parsed body:', JSON.stringify(body));
+		
 		const { message, name, email } = body;
 
 		// Validate inputs
 		if (
-			!message || message.length < 12 || message.length > 1000 ||
+			!message || message.length < 10 || message.length > 1000 ||
 			!name || name.length < 2 || name.length > 50 ||
 			!email || email.length < 5 || !email.includes ('@')
 		) {
+			console.log('Validation failed');
 			return {
 				statusCode: 400,
 				headers: {
@@ -21,6 +33,21 @@ exports.handler = async (event) => {
 				},
 				body: JSON.stringify({
 					message: "Missing required fields: message, name, and email are required"
+				})
+			};
+		}
+
+		// Verify ADMIN_EMAIL is set
+		if (!process.env.ADMIN_EMAIL) {
+			console.error('ADMIN_EMAIL environment variable is not set');
+			return {
+				statusCode: 500,
+				headers: {
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Origin": "*"
+				},
+				body: JSON.stringify({
+					message: "Server configuration error"
 				})
 			};
 		}
@@ -40,11 +67,13 @@ exports.handler = async (event) => {
 					Data: "New Portfolio Contact Form Submission"
 				}
 			},
-			Source: process.env.ADMIN_EMAIL // Must be verified in SES
+			Source: process.env.ADMIN_EMAIL
 		};
 
+		console.log('Sending email via SES...');
 		// Send email using SES
 		await sesClient.send(new SendEmailCommand(params));
+		console.log('Email sent successfully');
 
 		return {
 			statusCode: 200,
@@ -57,7 +86,9 @@ exports.handler = async (event) => {
 			})
 		};
 	} catch (error) {
-		console.error('Error:', error);
+		console.error('Error caught in handler:', error);
+		console.error('Error message:', error.message);
+		console.error('Error stack:', error.stack);
 
 		return {
 			statusCode: 500,
