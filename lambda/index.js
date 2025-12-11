@@ -20,7 +20,7 @@ exports.handler = async (event) => {
 
 		// Validate inputs
 		if (
-			!message || message.length < 10 || message.length > 1000 ||
+			!message || message.length < 5 || message.length > 1000 ||
 			!name || name.length < 2 || name.length > 50 ||
 			!email || email.length < 5 || !email.includes ('@')
 		) {
@@ -29,7 +29,8 @@ exports.handler = async (event) => {
 				statusCode: 400,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*"
+					//"Access-Control-Allow-Origin": "*"
+					"Access-Control-Allow-Origin": "https://rafikben.cloud"
 				},
 				body: JSON.stringify({
 					message: "Missing required fields: message, name, and email are required"
@@ -44,7 +45,8 @@ exports.handler = async (event) => {
 				statusCode: 500,
 				headers: {
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*"
+					////"Access-Control-Allow-Origin": "*"
+					"Access-Control-Allow-Origin": "https://rafikben.cloud"
 				},
 				body: JSON.stringify({
 					message: "Server configuration error"
@@ -79,7 +81,7 @@ exports.handler = async (event) => {
 			statusCode: 200,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*"
+				"Access-Control-Allow-Origin": "https://rafikben.cloud"
 			},
 			body: JSON.stringify({
 				message: "Email sent successfully"
@@ -94,7 +96,8 @@ exports.handler = async (event) => {
 			statusCode: 500,
 			headers: {
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*"
+				//"Access-Control-Allow-Origin": "*"
+				 "Access-Control-Allow-Origin": "https://rafikben.cloud"
 			},
 			body: JSON.stringify({
 				message: "Error processing request"
