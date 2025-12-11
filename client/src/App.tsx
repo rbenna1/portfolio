@@ -30,7 +30,7 @@ import {
   import Snowflakes from "@/components/Snowflakes/Snowflakes.tsx";
   
   import { motion } from "framer-motion";
-  import AnimatedCounter from "@/components/SkillMatrix/AnimatedCounter.tsx";
+  //import AnimatedCounter from "@/components/SkillMatrix/AnimatedCounter.tsx";
   import { useState } from "react";
   
   const App = () => {
@@ -127,6 +127,7 @@ import {
 				  </div>
   
 				  {/* Stats */}
+				  {/*
 				  <div className="mt-6 grid grid-cols-3 gap-3">
 					<motion.div 
 					  onMouseEnter={ () => setHoveredStat( "experience" ) }
@@ -181,7 +182,9 @@ import {
 						DELIVERED
 					  </div>
 					</motion.div>
+					*/}
   
+				  <div className="mt-6 grid grid-cols-1 gap-3">
 				  <motion.div 
 					onMouseEnter={ () => setHoveredStat( "platform" ) }
 					onMouseLeave={ () => setHoveredStat( null ) }
