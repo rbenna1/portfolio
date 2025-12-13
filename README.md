@@ -107,6 +107,6 @@ L'infrastructure déployée inclut :
 - SSL/TLS activé via CloudFront
 
 
-## Auteur
+## Auteur 
 
-Rafik Ben - [GitHub](https://github.com) | [LinkedIn](https://linkedin.com)
+Rafik BENNACER [LinkedIn](https://linkedin.com/in/rafik-bennacer)
