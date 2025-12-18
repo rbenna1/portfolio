@@ -44,10 +44,10 @@ portfolio/
 ## Installation et Démarrage
 
 ### Prérequis
-- Node.js 16+ 
-- pnpm (ou npm/yarn)
-- AWS CLI configuré (pour le déploiement)
-- Terraform (pour l'infrastructure)
+- Node.js
+- pnpm
+- AWS CLI
+- Terraform
 
 ### Développement Local
 
@@ -88,7 +88,6 @@ L'infrastructure déployée inclut :
 - Bucket S3 pour les fichiers statiques
 - Fonction Lambda pour l'authentification
 - SES pour l'envoi d'emails
-- DynamoDB pour la persistance
 
 ## Composants Principaux
 
