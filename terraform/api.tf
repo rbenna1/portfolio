@@ -3,7 +3,7 @@ resource "aws_apigatewayv2_api" "api" {
   protocol_type = "HTTP"
   cors_configuration {
     allow_origins  = ["https://${var.domain_name}", "https://www.${var.domain_name}", "https://rafikben.cloud"]
-    allow_methods  = ["POST", "OPTIONS"]
+    allow_methods  = ["POST"]
     allow_headers  = ["Content-Type"]
     expose_headers = ["Content-Type"]
   }
@@ -38,11 +38,12 @@ resource "aws_apigatewayv2_route" "route" {
   authorizer_id      = aws_apigatewayv2_authorizer.quota.id
 }
 
+/*
 resource "aws_apigatewayv2_route" "route_options" {
   api_id    = aws_apigatewayv2_api.api.id
   route_key = "OPTIONS /contact"
   target    = "integrations/${aws_apigatewayv2_integration.lambda.id}"
-}
+} */
 
 resource "aws_apigatewayv2_authorizer" "quota" {
   api_id                            = aws_apigatewayv2_api.api.id
