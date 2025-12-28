@@ -7,6 +7,21 @@ exports.handler = async (event) => {
 		console.log('Event received:', JSON.stringify(event));
 		console.log('ADMIN_EMAIL env var:', process.env.ADMIN_EMAIL);
 		
+		// Handle missing body
+		if (!event.body) {
+			console.log('No body found in event');
+			return {
+				statusCode: 400,
+				headers: {
+					"Content-Type": "application/json",
+					"Access-Control-Allow-Origin": "*"
+				},
+				body: JSON.stringify({
+					message: "Request body is required"
+				})
+			};
+		}
+		
 		let body;
 		if (typeof event.body === 'string') {
 			body = JSON.parse(event.body);
