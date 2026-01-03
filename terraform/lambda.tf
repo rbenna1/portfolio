@@ -139,3 +139,93 @@ resource "aws_lambda_permission" "auth_api" {
 	principal     = "apigateway.amazonaws.com"
 	source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }
+
+# CV Tracker Lambda
+data "archive_file" "cv_tracker_zip" {
+	type        = "zip"
+	source_file = "${path.cwd}/../lambda/cv-tracker.js"
+	output_path = "${path.module}/../lambda/cv_tracker_function.zip"
+}
+
+resource "aws_lambda_function" "cv_tracker_function" {
+	function_name    = "cv-tracker-${var.bucket_name}"
+	filename         = data.archive_file.cv_tracker_zip.output_path
+	source_code_hash = data.archive_file.cv_tracker_zip.output_base64sha256
+	handler          = "cv-tracker.handler"
+	runtime          = "nodejs22.x"
+	role             = aws_iam_role.cv_tracker_role.arn
+
+	environment {
+		variables = {
+			BUCKET_NAME = var.bucket_name
+			ADMIN_EMAIL = var.admin_email
+			SEND_CV_CLICK_EMAILS = "false" # Set to "true" if you want email notifications for each click
+		}
+	}
+}
+
+resource "aws_iam_role" "cv_tracker_role" {
+	name = "cv-tracker-role-${var.bucket_name}"
+
+	assume_role_policy = jsonencode({
+		Version = "2012-10-17"
+		Statement = [{
+			Action = "sts:AssumeRole"
+			Effect = "Allow"
+			Principal = {
+				Service = "lambda.amazonaws.com"
+			}
+		}]
+	})
+}
+
+resource "aws_iam_role_policy_attachment" "cv_tracker_basic" {
+	role       = aws_iam_role.cv_tracker_role.name
+	policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+resource "aws_iam_role_policy" "cv_tracker_dynamodb" {
+	name = "cv-tracker-dynamodb-${var.bucket_name}"
+	role = aws_iam_role.cv_tracker_role.id
+
+	policy = jsonencode({
+		Version = "2012-10-17"
+		Statement = [{
+			Action = [
+				"dynamodb:PutItem"
+			]
+			Effect   = "Allow"
+			Resource = aws_dynamodb_table.cv_clicks.arn
+		}]
+	})
+}
+
+resource "aws_iam_role_policy" "cv_tracker_ses" {
+	name = "cv-tracker-ses-${var.bucket_name}"
+	role = aws_iam_role.cv_tracker_role.id
+
+	policy = jsonencode({
+		Version = "2012-10-17"
+		Statement = [
+			{
+				Effect = "Allow"
+				Action = [
+					"ses:SendEmail",
+					"ses:SendRawEmail"
+				]
+				Resource = [
+					"arn:aws:ses:${var.aws_region}:*:identity/${aws_ses_email_identity.admin.email}"
+				]
+			}
+		]
+	})
+}
+
+resource "aws_lambda_permission" "cv_tracker_api" {
+	statement_id  = "AllowAPIGatewayInvoke"
+	action        = "lambda:InvokeFunction"
+	function_name = aws_lambda_function.cv_tracker_function.function_name
+	principal     = "apigateway.amazonaws.com"
+	source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*/cv"
+}
+

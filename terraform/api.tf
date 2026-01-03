@@ -29,6 +29,15 @@ resource "aws_apigatewayv2_integration" "lambda" {
   payload_format_version = "2.0"
 }
 
+resource "aws_apigatewayv2_integration" "cv_tracker" {
+  api_id = aws_apigatewayv2_api.api.id
+
+  integration_type       = "AWS_PROXY"
+  integration_method     = "GET"
+  integration_uri        = aws_lambda_function.cv_tracker_function.invoke_arn
+  payload_format_version = "2.0"
+}
+
 resource "aws_apigatewayv2_route" "route" {
   api_id    = aws_apigatewayv2_api.api.id
   route_key = "POST /contact"
@@ -36,6 +45,12 @@ resource "aws_apigatewayv2_route" "route" {
 
   authorization_type = "CUSTOM"
   authorizer_id      = aws_apigatewayv2_authorizer.quota.id
+}
+
+resource "aws_apigatewayv2_route" "cv_route" {
+  api_id    = aws_apigatewayv2_api.api.id
+  route_key = "GET /cv"
+  target    = "integrations/${aws_apigatewayv2_integration.cv_tracker.id}"
 }
 
 /*

@@ -57,6 +57,9 @@ const ContactForm = () => {
 
 		try {
 			const formData = new FormData( event.currentTarget );
+			const payload = Object.fromEntries( formData );
+			console.log('Sending payload:', payload);
+			
 			const response = await fetch(
 				API_ENDPOINT,
 				{
@@ -64,9 +67,13 @@ const ContactForm = () => {
 					headers: {
 						"Content-Type": "application/json"
 					},
-					body: JSON.stringify( Object.fromEntries( formData ) )
+					body: JSON.stringify( payload )
 				}
 			);
+
+			console.log('Response status:', response.status);
+			const responseBody = await response.text();
+			console.log('Response body:', responseBody);
 
 			if ( response.ok ) {
 				setFormResult( "success" );
@@ -74,7 +81,8 @@ const ContactForm = () => {
 			} else {
 				setFormResult( "error" );
 			}
-		} catch {
+		} catch ( error ) {
+			console.error('Fetch error:', error);
 			setFormResult( "error" );
 		}
 	};

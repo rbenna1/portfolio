@@ -24,7 +24,7 @@ import {
   import RotatingText from "@/components/RotatingText/RotatingText.tsx";
   import { sections } from "@/components/Navbar/types.ts";
   import SkillMatrix from "@/components/SkillMatrix/SkillMatrix.tsx";
-  import ContactForm from "@/components/ContactForm/ContactForm.tsx";
+  // import ContactForm from "@/components/ContactForm/ContactForm.tsx"; //
   import CopyValue from "@/components/CopyValue/CopyValue.tsx";
   import AvailabilityBadge from "@/components/AvailabilityBadge/AvailabilityBadge.tsx";
   import Snowflakes from "@/components/Snowflakes/Snowflakes.tsx";
@@ -417,38 +417,38 @@ import {
 	  </section>		  {/* Skills Section */}
 		  <SkillMatrix />
   
-		  {/* Contact Section */}
-		  <section
-			className="py-20 bg-gray-800"
-			id={sections.CONTACT}
-			ref={getSectionRef(sections.CONTACT)}
+	  {/* Contact Section */}
+	  {/* <section
+		className="py-20 bg-gray-800"
+		id={sections.CONTACT}
+		ref={getSectionRef(sections.CONTACT)}
+	  >
+		<div className="container mx-auto px-6 text-center">
+		  <h2 className="text-4xl font-bold mb-8">Get In Touch</h2>
+
+		  <p className="text-xl text-gray-400 mb-8">
+			I'm always open to discussing new projects and opportunities.
+		  </p>
+
+		  <ContactForm />
+		</div>
+	  </section> */}
+  
+	  {/* Footer Section */}
+	  <section className="flex flex-col items-center mx-8 text-center my-14">
+		<p className="text-gray-400">{name} · All rights reserved</p>
+		{footerLink ? (
+		  <a
+			className="mt-4 text-blue-400 underline"
+			href={footerLink.href}
+			rel="noreferrer"
+			target="_blank"
 		  >
-			<div className="container mx-auto px-6 text-center">
-			  <h2 className="text-4xl font-bold mb-8">Get In Touch</h2>
-  
-			  <p className="text-xl text-gray-400 mb-8">
-				I'm always open to discussing new projects and opportunities.
-			  </p>
-  
-			  <ContactForm />
-			</div>
-		  </section>
-  
-		  {/* Footer Section */}
-		  <section className="flex flex-col items-center mx-8 text-center my-14">
-			<p className="text-gray-400">{name} · All rights reserved</p>
-			{footerLink ? (
-			  <a
-				className="mt-4 text-blue-400 underline"
-				href={footerLink.href}
-				rel="noreferrer"
-				target="_blank"
-			  >
-				{footerLink.label}
-			  </a>
-			) : null}
-		  </section>
-		</main>
+			{footerLink.label}
+		  </a>
+		) : null}
+	  </section>
+	</main>
 	  </div>
 	);
   };

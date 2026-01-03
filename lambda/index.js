@@ -111,8 +111,7 @@ exports.handler = async (event) => {
 			statusCode: 500,
 			headers: {
 				"Content-Type": "application/json",
-				//"Access-Control-Allow-Origin": "*"
-				 "Access-Control-Allow-Origin": "https://rafikben.cloud"
+				"Access-Control-Allow-Origin": "https://rafikben.cloud"
 			},
 			body: JSON.stringify({
 				message: "Error processing request"
