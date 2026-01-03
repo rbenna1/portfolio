@@ -3,7 +3,7 @@ resource "aws_apigatewayv2_api" "api" {
   protocol_type = "HTTP"
   cors_configuration {
     allow_origins  = ["https://${var.domain_name}", "https://www.${var.domain_name}", "https://rafikben.cloud"]
-    allow_methods  = ["POST"]
+    allow_methods  = ["POST", "GET"]
     allow_headers  = ["Content-Type"]
     expose_headers = ["Content-Type"]
   }
@@ -33,7 +33,7 @@ resource "aws_apigatewayv2_integration" "cv_tracker" {
   api_id = aws_apigatewayv2_api.api.id
 
   integration_type       = "AWS_PROXY"
-  integration_method     = "GET"
+  integration_method     = "POST"
   integration_uri        = aws_lambda_function.cv_tracker_function.invoke_arn
   payload_format_version = "2.0"
 }
@@ -50,6 +50,12 @@ resource "aws_apigatewayv2_route" "route" {
 resource "aws_apigatewayv2_route" "cv_route" {
   api_id    = aws_apigatewayv2_api.api.id
   route_key = "GET /cv"
+  target    = "integrations/${aws_apigatewayv2_integration.cv_tracker.id}"
+}
+
+resource "aws_apigatewayv2_route" "cv_route_post" {
+  api_id    = aws_apigatewayv2_api.api.id
+  route_key = "POST /cv"
   target    = "integrations/${aws_apigatewayv2_integration.cv_tracker.id}"
 }
 
