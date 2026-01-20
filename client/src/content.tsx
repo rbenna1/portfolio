@@ -85,7 +85,7 @@ export const projects: {
 		title: "Meteo France platform",
 		description: "A web platform for visualizing and analyzing meteorological data ",
 		tech: ["Python", "Project Management", "MongoDB", "Docker", "Redis", "Kafka", "Grafana", "Prometheus"],
-		link: "https://github.com/rbenna1/weather",
+		link: "https://github.com/Paris-Saclay-Meteo-OpenIoT/Meteo-France-Platform-IoT",
 		img: "/project/weather.webp"
 
 	}, 
