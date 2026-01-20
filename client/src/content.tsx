@@ -91,11 +91,11 @@ export const projects: {
 	}, 
 
 	{
-		title: "Remotely controlled robot",
-		description: "A remotely controlled robot using Raspberry Pi, equipped with a camera and sensors.",
-		tech: ["Python", "Raspberry Pi", "OpenCV", "MQTT"],
-		link: "https://github.com/rbenna1/remotely-controlled-robot",
-		img: "/project/rasp.jpg"
+		title: "3D Pyramid game",
+		description: "An interactive 3D pyramid game built with Processing, featuring realistic physics simulation including gravity, collision detection, and dynamic object interaction.",
+		tech: ["Processing", "Java", "3D Graphics", "Physics Engine", "Game Development"],
+		link: "https://github.com/rbenna1/Projet-Informatique-Graphique-pour-la-science-de-donnees-",
+		img: "/project/"
 	}
 
 ] as const;
