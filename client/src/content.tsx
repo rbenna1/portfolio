@@ -94,7 +94,7 @@ export const projects: {
 		description: "An interactive 3D pyramid game built with Processing, featuring realistic physics simulation including gravity, collision detection, and dynamic object interaction.",
 		tech: ["Processing", "Java", "3D Graphics", "Physics Engine", "Game Development"],
 		link: "https://github.com/rbenna1/Labyrinth",
-		img: "/project/"
+		img: "/project/labyrinth.png"
 	}
 
 ] as const;
