@@ -83,7 +83,7 @@ import {
   />
 
 				  <p className="text-white/90">
-					I am <span className="font-semibold">{name}</span>, a passionate DevOps Engineer at Crédit Agricole Group Infrastructure Platform. Every day I push the boundaries of cloud and HPC technologies. I love exploring GitHub projects for inspiration and learning.
+					I am <span className="font-semibold">{name}</span>, a DevOps Engineer at Crédit Agricole Group Infrastructure Platform. Every day I push the boundaries of cloud and HPC technologies. I love exploring GitHub projects for inspiration and learning.
 				  </p>
   
 				  {/* Citation */}
