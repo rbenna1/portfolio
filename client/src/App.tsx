@@ -13,7 +13,6 @@ import {
 	name,
 	nextButton,
 	projects,
-	showAvailability,
 	taglines,
   } from "@/content.tsx";
   
@@ -26,7 +25,6 @@ import {
   import SkillMatrix from "@/components/SkillMatrix/SkillMatrix.tsx";
   // import ContactForm from "@/components/ContactForm/ContactForm.tsx"; //
   import CopyValue from "@/components/CopyValue/CopyValue.tsx";
-  import AvailabilityBadge from "@/components/AvailabilityBadge/AvailabilityBadge.tsx";
   import Snowflakes from "@/components/Snowflakes/Snowflakes.tsx";
   
   import { motion } from "framer-motion";
@@ -39,9 +37,6 @@ import {
   
 	return (
 	  <div className="min-h-screen bg-gray-900 text-white relative w-full">
-		{/* Badge de disponibilité */}
-		{showAvailability ? <AvailabilityBadge /> : null}
-  
 		{/* Image/gradient de fond existant */}
 		<div className="hero-background motion-safe:animate-fade" />
 

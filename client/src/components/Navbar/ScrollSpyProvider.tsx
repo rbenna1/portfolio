@@ -32,7 +32,7 @@ function getActiveSection( ref: MutableRefObject<SectionRef> ): SectionId {
 
 	if ( window.scrollY <= pixelBuffer ) return sections.ABOUT; // Edge case: User is near TOP of page
 	if ( window.innerHeight + window.scrollY >=
-		document.documentElement.scrollHeight - pixelBuffer ) return sections.CONTACT; // Edge case: User is near BOTTOM of page
+		document.documentElement.scrollHeight - pixelBuffer ) return sections.SKILLS; // Edge case: User is near BOTTOM of page
 
 	// Calculate viewport middle
 	const viewportMiddle = window.scrollY + window.innerHeight / 2;
@@ -77,8 +77,7 @@ export const ScrollSpyProvider = ( {
 	const sectionRefs = useRef<SectionRef>( {
 		[ sections.ABOUT ]: null,
 		[ sections.PROJECTS ]: null,
-		[ sections.SKILLS ]: null,
-		[ sections.CONTACT ]: null
+		[ sections.SKILLS ]: null
 	} );
 
 	useEffect(
