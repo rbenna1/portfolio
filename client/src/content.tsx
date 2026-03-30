@@ -83,7 +83,7 @@ export const projects: {
 	{
 		title: "Meteo France platform",
 		description: "A web platform for visualizing and analyzing meteorological data ",
-		tech: ["Python", "Project Management", "MongoDB", "Docker", "Redis", "Kafka", "Grafana", "Prometheus"],
+		tech: ["Python", "Project Management", "MongoDB", "Docker", "Redis", "Apache Kafka", "Grafana", "Prometheus"],
 		link: "https://github.com/Paris-Saclay-Meteo-OpenIoT/Meteo-France-Platform-IoT",
 		img: "/project/weather.webp"
 
@@ -95,6 +95,13 @@ export const projects: {
 		tech: ["Processing", "Java", "3D Graphics", "Physics Engine", "Game Development"],
 		link: "https://github.com/rbenna1/Labyrinth",
 		img: "/project/labyrinth.png"
+	}, 
+	{
+		title: "I-Cooling Cisco",
+		description : "Objective comparison of AI data center cooling technologies (air cooling, immersion cooling, rear-door heat exchangers, and direct liquid cooling), incorporating real-time sensor data, with a configurable composite scoring system and AI-driven recommendations.",
+		tech : ["Docker", "Grafana", "Prometheus", "Apache Kafka", "REST"], 
+		link : "https://github.com/rbenna1/hackaton",
+		img : "/project/hack.png"
 	}
 
 ] as const;
